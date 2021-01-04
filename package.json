@@ -16,8 +16,5 @@
   "devDependencies": {
     "@vuepress/theme-blog": "^2.3.3",
     "vuepress": "^1.5.3"
-  },
-  "dependencies": {
-    "dayjs": "1.8.19"
   }
 }
