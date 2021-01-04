@@ -4,12 +4,12 @@ module.exports = {
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#title
    */
-  title: 'Vuepress Docs Boilerplate',
+  title: 'Adajoy articles',
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#description
    */
   description: description,
-
+  theme: '@vuepress/blog',
   /**
    * Extra tags to be injected to the page HTML `<head>`
    *
@@ -32,32 +32,7 @@ module.exports = {
     docsDir: '',
     editLinkText: '',
     lastUpdated: false,
-    nav: [
-      {
-        text: 'Guide',
-        link: '/guide/',
-      },
-      {
-        text: 'Config',
-        link: '/config/'
-      },
-      {
-        text: 'VuePress',
-        link: 'https://v1.vuepress.vuejs.org'
-      }
-    ],
-    sidebar: {
-      '/guide/': [
-        {
-          title: 'Guide',
-          collapsable: false,
-          children: [
-            '',
-            'using-vue',
-          ]
-        }
-      ],
-    }
+    nav: [],
   },
 
   /**
@@ -66,5 +41,28 @@ module.exports = {
   plugins: [
     '@vuepress/plugin-back-to-top',
     '@vuepress/plugin-medium-zoom',
+    [
+      '@vuepress/blog',
+      {
+        directories: [
+          {
+            // Unique ID of current classification
+            id: 'post',
+            // Target directory
+            dirname: '_posts',
+            // Path of the `entry page` (or `list page`)
+            path: '/',
+            pagination: {
+              sorter: (prev, next) => {
+                const dayjs = require('dayjs').default;
+                const prevTime = dayjs(prev.frontmatter.date);
+                const nextTime = dayjs(next.frontmatter.date);
+                return prevTime - nextTime > 0 ? -1 : 1;
+              }
+            }
+          },
+        ],
+      },
+    ],
   ]
 }
